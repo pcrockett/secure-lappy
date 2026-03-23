@@ -5,5 +5,10 @@ laptop.
 
 ## getting started
 
-install [fedora silverblue](https://fedoraproject.org/atomic-desktops/silverblue/) on a
-laptop, clone this repo, and run `./bin/bootstrap.sh`.
+1. install [fedora silverblue](https://fedoraproject.org/atomic-desktops/silverblue/) on
+   a laptop
+2. run:
+   ```bash
+   curl -SsfL https://github.com/pcrockett/secure-lappy/raw/refs/heads/main/bin/bootstrap.sh \
+     | bash
+   ```
