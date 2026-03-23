@@ -14,12 +14,7 @@ init() {
   INSTALL_DIR="${INSTALL_DIR:-${XDG_CONFIG_HOME}/secure-lappy}"
   NEEDS_REBOOT="false"
   mkdir --parent "${XDG_CONFIG_HOME}"
-
-  if [ -d "${INSTALL_DIR}" ]; then
-    cd "${INSTALL_DIR}"
-  else
-    cd "${XDG_CONFIG_HOME}"
-  fi
+  cd "${XDG_CONFIG_HOME}"
 }
 
 step() {
@@ -32,7 +27,6 @@ gen_ssh_key() {
     step "Generating SSH key..."
     ssh-keygen -t ed25519 -f "${key_file}" -a 300
     step "SSH key generated. Add \`${key_file}.pub\` to your GitHub account settings."
-    exit 0
   }
 }
 
@@ -45,16 +39,29 @@ install_just() {
   }
 }
 
+clone_repo() {
+  test -d "${INSTALL_DIR}/.git" || {
+    step "Cloning repo..."
+    git clone "${GIT_REMOTE}" "${INSTALL_DIR}"
+    step "Repo cloned."
+  }
+}
+
+first_apply() {
+  cd "${INSTALL_DIR}"
+  just apply
+}
+
 main() {
   init
   install_just
   gen_ssh_key
-  git clone "${GIT_REMOTE}" "${INSTALL_DIR}"
   if [ "${NEEDS_REBOOT}" == "true" ]; then
     step "Reboot and run this script to continue."
     exit 0
   fi
-  just apply
+  clone_repo
+  first_apply
   exit $?
 }
 
