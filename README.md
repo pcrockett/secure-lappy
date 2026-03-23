@@ -7,7 +7,8 @@ laptop.
 
 1. install [fedora silverblue](https://fedoraproject.org/atomic-desktops/silverblue/) on
    a laptop
-2. run:
+2. connect the laptop to the internet
+3. run:
    ```bash
    curl -SsfL https://github.com/pcrockett/secure-lappy/raw/refs/heads/main/bin/bootstrap.sh \
      | bash

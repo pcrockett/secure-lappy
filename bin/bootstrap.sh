@@ -26,7 +26,10 @@ gen_ssh_key() {
   test -f "${key_file}" || {
     step "Generating SSH key..."
     ssh-keygen -t ed25519 -f "${key_file}" -a 300
-    step "SSH key generated. Add \`${key_file}.pub\` to your GitHub account settings."
+    step "SSH key generated. Add the following to your GitHub account keys:"
+    echo
+    cat "${key_file}.pub"
+    echo
   }
 }
 
@@ -43,7 +46,7 @@ clone_repo() {
   test -d "${INSTALL_DIR}/.git" || {
     step "Cloning repo..."
     git clone "${GIT_REMOTE}" "${INSTALL_DIR}"
-    step "Repo cloned."
+    step "Repo cloned to ${INSTALL_DIR}"
   }
 }
 
