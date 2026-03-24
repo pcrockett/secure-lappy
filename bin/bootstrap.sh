@@ -60,12 +60,15 @@ populate_envrc() {
 
 source_envrc() {
   # define some dummy functions to prevent errors
+  # shellcheck disable=SC2329
   strict_env() {
     true
   }
+  # shellcheck disable=SC2329
   PATH_add() {
     true
   }
+  # shellcheck source=/dev/null
   source "${INSTALL_DIR}/.envrc"
 }
 
