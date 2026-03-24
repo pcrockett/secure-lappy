@@ -60,25 +60,6 @@ populate_envrc() {
   }
 }
 
-source_envrc() {
-  # define some dummy functions to prevent errors
-  # shellcheck disable=SC2329
-  strict_env() {
-    true
-  }
-  # shellcheck disable=SC2329
-  PATH_add() {
-    true
-  }
-  # shellcheck source=/dev/null
-  source "${INSTALL_DIR}/.envrc"
-}
-
-first_apply() {
-  cd "${INSTALL_DIR}"
-  just apply
-}
-
 main() {
   init
   install_packages
@@ -89,9 +70,14 @@ main() {
   fi
   clone_repo
   populate_envrc
-  nano "${INSTALL_DIR}/.envrc"
-  source_envrc
-  first_apply
+  cat <<EOF
+DONE! Now for the manual steps:
+
+1. cd to ${INSTALL_DIR}
+2. \`nano .envrc\` and fill out the settings
+3. run \`just apply\`
+
+EOF
   exit $?
 }
 
