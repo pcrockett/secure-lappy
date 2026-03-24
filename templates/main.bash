@@ -1,7 +1,7 @@
 #!/usr/bin/env blarg
 
 targets=(
-  network/main
+  TODO
 )
 
 depends_on "${targets[@]}"

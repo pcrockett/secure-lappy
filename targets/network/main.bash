@@ -1,7 +1,7 @@
 #!/usr/bin/env blarg
 
 targets=(
-  network/main
+  firewall-configured
 )
 
 depends_on "${targets[@]}"
