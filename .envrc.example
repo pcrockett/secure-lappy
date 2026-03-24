@@ -1,3 +1,6 @@
 # shellcheck shell=bash
 strict_env
 PATH_add bin
+
+export PUBLIC_EMAIL="TODO"
+export PUBLIC_NAME="TODO"

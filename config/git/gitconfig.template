@@ -1,0 +1,39 @@
+[core]
+	excludesFile = ~/.gitignore
+[user]
+	name = ${PUBLIC_NAME}
+	email = ${PUBLIC_EMAIL}
+[alias]
+	st = status
+	sw = switch
+	graph = log --graph --format=format:'%C(dim white)⟵  %C(reset)%C(bold blue)%h%C(reset)%C(auto)%d%C(reset) %C(bold cyan)%an%C(reset) %C(bold magenta)%cs\n%C(bold blue)   ⎩ %C(reset)%s'
+	bigpicture = log --graph --simplify-by-decoration --format=format:'%C(bold blue)%h%C(reset) %C(auto)%D%C(reset) - %C(bold cyan)%an%C(reset) %ar'
+	today = !git commit -m \"$(date --iso-8601)\"
+	now = !git commit -m \"$(date --iso-8601=minutes)\"
+	tempmerge = merge --no-ff --no-commit
+	wip = !git commit -m "wip"
+[init]
+	defaultBranch = main
+[pull]
+	ff = only
+
+# tips from <https://blog.gitbutler.com/how-git-core-devs-configure-git/>
+[branch]
+	sort = -committerdate
+[tag]
+	sort = version:refname
+[diff]
+	algorithm = histogram
+	colorMoved = plain
+	renames = true
+[fetch]
+	prune = true
+	pruneTags = true
+	all = true
+[commit]
+	verbose = true
+[rerere]
+	enabled = true
+	autoupdate = true
+[merge]
+	conflictStyle = zdiff3

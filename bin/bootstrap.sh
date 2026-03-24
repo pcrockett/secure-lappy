@@ -33,11 +33,13 @@ gen_ssh_key() {
   }
 }
 
-install_just() {
-  command -v just &>/dev/null || {
-    step "Installing just..."
-    rpm-ostree install just
-    step "Just installed (reboot required)."
+install_packages() {
+  {
+    command -v just && command -v direnv
+  } &>/dev/null || {
+    step "Installing packages..."
+    rpm-ostree install just direnv
+    step "Packages installed (reboot required)."
     NEEDS_REBOOT="true"
   }
 }
@@ -50,6 +52,23 @@ clone_repo() {
   }
 }
 
+populate_envrc() {
+  test -f "${INSTALL_DIR}/.envrc" || {
+    cp "${INSTALL_DIR}/.envrc.example" "${INSTALL_DIR}/.envrc"
+  }
+}
+
+source_envrc() {
+  # define some dummy functions to prevent errors
+  strict_env() {
+    true
+  }
+  PATH_add() {
+    true
+  }
+  source "${INSTALL_DIR}/.envrc"
+}
+
 first_apply() {
   cd "${INSTALL_DIR}"
   just apply
@@ -57,13 +76,16 @@ first_apply() {
 
 main() {
   init
-  install_just
+  install_packages
   gen_ssh_key
   if [ "${NEEDS_REBOOT}" == "true" ]; then
     step "Reboot and run this script to continue."
     exit 0
   fi
   clone_repo
+  populate_envrc
+  nano "${INSTALL_DIR}/.envrc"
+  source_envrc
   first_apply
   exit $?
 }

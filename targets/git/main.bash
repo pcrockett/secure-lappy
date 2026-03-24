@@ -1,8 +1,7 @@
 #!/usr/bin/env blarg
 
 targets=(
-  network/main
-  git/main
+  git-configured
 )
 
 depends_on "${targets[@]}"

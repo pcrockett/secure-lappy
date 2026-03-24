@@ -1,0 +1,5 @@
+.direnv/
+.envrc
+.tags
+.tags_sorted_by_file
+/.phil/
