@@ -27,8 +27,11 @@ template_was_rendered() {
 }
 
 template_render() {
-  local template="${1}" mask="${2:-u=rw,g=,o=}" output
+  # local template="${1}" mask="${2:-u=rw,g=,o=}" output
+  local template="${1}" output
   __validate_template_file_name "${template}"
   output="$(__get_template_output_file "${template}")"
-  with-umask "${mask}" envsubst <"${template}" >"${output}"
+
+  # TODO: use with-umask if / when we ever install it
+  envsubst <"${template}" >"${output}"
 }
