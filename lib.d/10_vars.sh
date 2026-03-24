@@ -10,4 +10,4 @@
 # fi
 
 export STATE_DIR="${HOME}/.local/state/lappy"
-export REPO_CONFIG_DIR="${BLARG_MODULE_PATH}/config"
+export REPO_CONFIG_DIR="${BLARG_MODULE_DIR}/config"
