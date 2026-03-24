@@ -45,11 +45,13 @@ install_packages() {
 }
 
 clone_repo() {
-  test -d "${INSTALL_DIR}/.git" || {
+  if [ -d "${INSTALL_DIR}/.git" ]; then
+    git -C "${INSTALL_DIR}" pull --ff-only
+  else
     step "Cloning repo..."
     git clone "${GIT_REMOTE}" "${INSTALL_DIR}"
     step "Repo cloned to ${INSTALL_DIR}"
-  }
+  fi
 }
 
 populate_envrc() {
