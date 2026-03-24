@@ -38,7 +38,7 @@ install_packages() {
     command -v just && command -v direnv
   } &>/dev/null || {
     step "Installing packages..."
-    rpm-ostree install just direnv
+    rpm-ostree install --idempotent just direnv
     step "Packages installed (reboot required)."
     NEEDS_REBOOT="true"
   }
