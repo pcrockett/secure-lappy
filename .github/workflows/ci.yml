@@ -22,7 +22,7 @@ jobs:
         with:
           fetch-depth: 0
 
-      - uses: taiki-e/install-action@06203676c62f0d3c765be3f2fcfbebbcb02d09f5  # v2.69.6
+      - uses: taiki-e/install-action@8b3c737da4b541bf0fb5a3e0488ff20535badac9  # v2.82.1
         with:
           tool: just@1.47.1,shfmt@3.13.0
 
