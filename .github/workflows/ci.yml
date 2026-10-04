@@ -20,28 +20,9 @@ jobs:
       - name: Checkout
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  # v7.0.1
         with:
-          fetch-depth: 0
-
-      - uses: taiki-e/install-action@7623a79cdfecb99d681017af368ca353d9f49bb5  # v2.87.19
-        with:
-          tool: just@1.47.1,shfmt@3.13.0
-
-      - name: Setup Python
-        uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97  # v7.0.0
-
-      - name: Install tools
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: |
-          curl -SsfL https://philcrockett.com/yolo/v2.sh \
-            | bash -s -- yamlfmt
-
-      # borrowed /modified the following from <https://github.com/pre-commit/action/blob/main/action.yml>
-      - run: python -m pip install pre-commit
-      - run: python -m pip freeze --local
-      - uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9  # v6.1.0
-        with:
-          path: ~/.cache/pre-commit
-          key: pre-commit-3|${{ env.pythonLocation }}|${{ hashFiles('.pre-commit-config.yaml') }}
-
+          persist-credentials: false
+      - uses: pcrockett/setup-just@096177f0c832d972bdf47b0fac0e8b9c0eb49326  # v0.1.2
+      - uses: pcrockett/setup-shfmt@bf26c86e340dc10783e5c105cf09a459a6b45751  # v0.1.2
+      - uses: pcrockett/setup-yamlfmt@2949e59bb1f6d24f519d0dfa2560a0dbcd563fcc  # v0.1.1
+      - uses: pcrockett/setup-pre-commit@e7e4a210561b1c4114b3a45eddbdc67e39e81f21  # v0.1.2
       - run: just lint
